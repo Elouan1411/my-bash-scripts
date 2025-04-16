@@ -16,6 +16,12 @@ This script converts `.mkv` video files into `.mp3` audio files in the specified
 
 [More details here](./convert-mkv-to-mp3/README.md)
 
+### 3. [dock](./dock)
+
+A small script to change quickly the position of the GNOME Shell dock using `gsettings`.
+
+[More details here](./dock/README.md)
+
 ## Usage
 
 Each script comes with its own `Makefile` for installation and uninstallation. To install a script globally, navigate to the desired script folder and run:
