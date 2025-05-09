@@ -1,43 +1,43 @@
-# Projet de Compilation LaTeX Automatisée
+# Automated LaTeX Compilation Project
 
-Ce projet permet d'automatiser la compilation de documents LaTeX en utilisant un script shell. Il prend en charge la gestion des bibliographies et des fichiers temporaires, avec la possibilité d'effectuer une double compilation ou de nettoyer les fichiers temporaires.
+This project automates the compilation of LaTeX documents using a shell script. It supports bibliography handling, double compilation, and cleanup of temporary files.
 
-## Dépendances
+## Dependencies
 
-Avant de pouvoir utiliser ce projet, vous devez avoir les outils suivants installés sur votre machine :
+Before using this project, make sure the following tools are installed on your system:
 
-- `pdflatex` (partie du paquet TeX Live ou MikTeX)
-- `bibtex` (pour la gestion des bibliographies)
-- `make` (pour l'automatisation de l'installation et de la désinstallation)
+* `pdflatex` (part of TeX Live or MikTeX)
+* `bibtex` (for bibliography management)
+* `make` (for script installation and uninstallation)
 
 ## Installation
 
-Pour installer le script et le rendre exécutable n'importe où, suivez ces étapes :
+To install the script and make it executable from anywhere, follow these steps:
 
-1. Clonez ce dépôt dans votre répertoire de travail.
-2. Ouvrez un terminal et naviguez jusqu'à votre répertoire de projet.
-3. Exécutez la commande suivante pour installer le script :
+1. Clone this repository to your workspace.
+2. Open a terminal and navigate to the project directory.
+3. Run the following command:
 
 ```bash
 make install
 ```
 
-Cela va copier le fichier `texcompiler.sh` dans `/usr/local/bin/texcompiler`, lui attribuer les permissions d'exécution, et le rendre disponible en tant que commande globale.
+This will copy the `texcompiler.sh` script to `/usr/local/bin/texcompiler`, make it executable, and make it available as a global command.
 
-## Intégration avec LaTeX Workshop dans VS Code
+## Integration with LaTeX Workshop in VS Code
 
-Pour utiliser `texcompiler` directement depuis **LaTeX Workshop** dans **VS Code**, vous devez modifier votre fichier de configuration `settings.json`.
+To use `texcompiler` directly from **LaTeX Workshop** in **VS Code**, you need to update your `settings.json` configuration.
 
-### Configuration de `LaTeX Workshop`
+### LaTeX Workshop Configuration
 
-1. **Ouvrez VS Code**.
-2. **Appuyez sur** `F1` et recherchez **"Open User Settings (JSON)"**.
-3. **Ajoutez les lignes suivantes dans `settings.json`** :
+1. **Open VS Code**.
+2. **Press** `F1` and search for **"Open User Settings (JSON)"**.
+3. **Add the following lines to your `settings.json` file**:
 
 ```json
 "latex-workshop.latex.recipes": [
     {
-        "name": "Compiler avec texcompiler",
+        "name": "Compile with texcompiler",
         "tools": ["texcompiler"]
     }
 ],
@@ -53,46 +53,47 @@ Pour utiliser `texcompiler` directement depuis **LaTeX Workshop** dans **VS Code
 ],
 ```
 
-4. **Enregistrez et redémarrez VS Code**.
+4. **Save and restart VS Code**.
 
-Cette configuration permet d'exécuter texcompiler directement depuis VS Code et de recompiler automatiquement vos documents LaTeX à chaque enregistrement (Ctrl + S) grâce à LaTeX Workshop.
+With this setup, you can run `texcompiler` directly from VS Code and automatically recompile your LaTeX documents on save (Ctrl + S) using LaTeX Workshop.
 
-## Commandes disponibles
+## Available Options
 
-Le script accepte les options suivantes :
+The script accepts the following options:
 
-- `--double` : Effectue une double compilation (utile si vous n'avez pas de bibliographie).
-- `--clean` : Supprime les fichiers temporaires, puis effectue la compilation.
-- `--clear` : Supprime les fichiers temporaires sans effectuer de compilation.
-- `--bib` : Gère la compilation avec une bibliographie (bibtex + recompilations).
-- `--help` : Affiche le message d'aide et les options disponibles.
+* `--double`: Performs a double compilation (useful when there's no bibliography).
+* `--clean`: Removes temporary files, then compiles.
+* `--clear`: Removes temporary files without compiling.
+* `--bib`: Handles bibliography (bibtex + recompilations).
+* `--help`: Displays usage instructions and available options.
 
-### Exemple d'utilisation
+### Example Usage
 
-Pour compiler un fichier LaTeX avec bibliographie :
-
-```bash
-texcompiler mon_document.tex --bib
-```
-
-Pour effectuer une double compilation sans bibliographie :
+To compile a LaTeX file with a bibliography:
 
 ```bash
-texcompiler mon_document.tex --double
+texcompiler my_document.tex --bib
 ```
 
-Pour nettoyer les fichiers temporaires sans compilation :
+To perform a double compilation without bibliography:
 
 ```bash
-texcompiler mon_document.tex --clear
+texcompiler my_document.tex --double
 ```
 
-## Désinstallation
+To clean temporary files without compiling:
 
-Pour supprimer le script et le rendre inutilisable, exécutez simplement la commande suivante :
+```bash
+texcompiler my_document.tex --clear
+```
+
+## Uninstallation
+
+To remove the script and make it unavailable system-wide, simply run:
 
 ```bash
 make uninstall
 ```
 
-Cela supprimera le script de `/usr/local/bin`.
+This will delete the script from `/usr/local/bin`.
+
