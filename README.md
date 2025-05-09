@@ -2,8 +2,6 @@
 
 This repository contains various Bash scripts I've created for different purposes. Each script has its own dedicated folder with a detailed README explaining its usage, installation, and functionality.
 
-## Available Scripts
-
 ### 1. [LaTeX Compilation Automation](./texcompiler)
 
 This project automates the compilation of LaTeX documents, including bibliography management, double compilation, and cleanup of temporary files. Compatible with VS Code's LaTeX Workshop extension.
@@ -16,11 +14,17 @@ This script converts `.mkv` video files into `.mp3` audio files in the specified
 
 [More details here](./convert-mkv-to-mp3/README.md)
 
-### 3. [dock](./dock)
+### 3. [convert-md-to-pdf](./convert-md-to-pdf)
 
-A small script to change quickly the position of the GNOME Shell dock using `gsettings`.
+This script converts a Markdown file (`.md`) into a PDF. You can optionally use a GitHub-style CSS for the HTML conversion, or use LaTeX for PDF compilation. The script utilizes `pandoc` and `weasyprint`.
 
-[More details here](./dock/README.md)
+[More details here](./convert-md-to-pdf/README.md)
+
+### 4. [html2php](./html2php)
+
+This Bash script converts an HTML file into a series of PHP `echo` statements, line by line. It escapes special characters and maintains indentation — perfect for embedding HTML in PHP code.
+
+[More details here](./html2php/README.md)
 
 ## Usage
 

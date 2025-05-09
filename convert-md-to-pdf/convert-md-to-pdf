@@ -1,0 +1,103 @@
+#!/bin/sh
+
+# Markdown to PDF converter using weasyprint with GitHub style (no LaTeX)
+# Optional --github flag to use GitHub style
+
+print_help() {
+	cat <<EOF
+Usage: $(basename "$0") [--github] <file.md>
+
+Converts the given Markdown (.md) file to PDF.
+
+Default behavior:
+  - Uses pandoc with xelatex engine
+  - Outputs PDF next to the original .md file
+  - Sets paper size to A4
+  - Prompts for additional LaTeX options
+
+Options:
+  --github          Use GitHub style (like README rendering), no LaTeX
+  -h, --help        Show this help message
+
+📚 Useful LaTeX Options (add them when prompted):
+
+  Metadata:
+    -V title:"My Document"              Set document title
+    -V author:"Your Name"               Set author
+    -V date:"May 2025"                  Set custom date
+
+  Layout:
+    --toc                               Include table of contents
+    --number-sections                   Number section headings
+    -V geometry:margin=2.5cm            Set page margins
+    -V fontsize=11pt                    Font size (default: 10pt)
+    -V mainfont:"DejaVu Serif"          Custom font
+    -V linestretch=1.3                  Line spacing
+
+Example:
+  $(basename "$0") monfichier.md
+  ➤ Add LaTeX options (or leave empty): --toc --number-sections -V title:"Résumé" -V author:"Alice"
+
+With GitHub style (no LaTeX):
+  $(basename "$0") --github readme.md
+EOF
+}
+
+# Default values
+github_mode=0
+css_file="$HOME/.local/bin/github-markdown-dark.css"  # Local CSS file path
+
+# Parse options
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+	print_help
+	exit 0
+elif [ "$1" = "--github" ]; then
+	github_mode=1
+	shift
+fi
+
+# Check for .md file
+if [ $# -ne 1 ]; then
+	echo "Error: You must provide a .md file."
+	echo "Run with --help for usage."
+	exit 1
+fi
+
+input="$1"
+if [ ! -f "$input" ]; then
+	echo "Error: File '$input' not found."
+	exit 1
+fi
+
+dir=$(dirname "$(realpath "$input")")
+base=$(basename "$input")
+name="${base%.*}"
+
+# Conversion
+if [ "$github_mode" -eq 1 ]; then
+	# Convert to HTML with GitHub style CSS (local file)
+	if [ ! -f "$css_file" ]; then
+		echo "Error: GitHub CSS file not found at '$css_file'."
+		exit 1
+	fi
+	echo "➡️  Converting '$base' using GitHub style..."
+	tmp_html=$(mktemp --suffix=.html)
+	pandoc "$input" --from=gfm --to=html5 -s \
+		--css="file://$css_file" \
+		-o "$tmp_html"
+	weasyprint "$tmp_html" "$dir/$name.pdf"
+	rm "$tmp_html"
+else
+	echo -n "Add LaTeX options (or leave empty): "
+	read user_opts
+	echo "➡️  Converting '$base' to PDF with xelatex..."
+	pandoc "$input" -f markdown --pdf-engine=xelatex -V papersize:a4paper $user_opts -o "$dir/$name.pdf"
+fi
+
+# Report
+if [ $? -eq 0 ]; then
+	echo "✅ PDF created: $dir/$name.pdf"
+else
+	echo "❌ Error during conversion."
+fi
+
