@@ -1,6 +1,0 @@
-📁 Directory Organizer – 🎯 Objective
-Create a Bash script that automatically organizes the files in a given directory by sorting them into subfolders based on their file extensions (e.g., images, videos, documents, archives, etc.).
-
-Include a recursive mode to apply the organization to subdirectories as well.
-
-Eventually, automate the process so it runs automatically whenever a new file appears in the Downloads folder.
