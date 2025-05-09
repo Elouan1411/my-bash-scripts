@@ -1,2 +1,0 @@
-📸 Screenshot Renamer – 🎯 Objective
-Create a Bash script that automatically renames a newly captured screenshot based on the current date and the name of the active window (e.g., Screenshot_2025-04-16_VisualStudioCode.png).
