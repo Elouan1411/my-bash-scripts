@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Backup Documents
+Comment=Lancer le script de backup avec popup et log
+Exec=~/.local/bin/popup_backup.sh
+Icon=~/.local/share/icons/backup.png
+Terminal=false
+Categories=Utility;
+StartupNotify=true
+
