@@ -32,6 +32,7 @@ rsync -av --delete \
     --exclude='*.toc' \
     "$SOURCE_DIR" "$BACKUP_DIR" &> "$LOG_FILE"
 
+
 # Vérifie si rsync a réussi
 if [[ $? -eq 0 ]]; then
     echo "Backup réussi dans $BACKUP_DIR"
