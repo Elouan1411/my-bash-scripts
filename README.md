@@ -26,6 +26,10 @@ This Bash script converts an HTML file into a series of PHP `echo` statements, l
 
 [More details here](./html2php/README.md)
 
+### 5. [Backup Script](./backup)
+
+This Bash script performs an incremental backup of your documents using `rsync`. It excludes certain folders and files (`.git`, `node_modules`, `target`, and LaTeX temporary files) and creates a timestamped log for each backup. You can launch it via a desktop shortcut with a popup confirmation. [More details here](./backup/README.md)
+
 ## Usage
 
 Each script comes with its own `Makefile` for installation and uninstallation. To install a script globally, navigate to the desired script folder and run:

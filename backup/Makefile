@@ -19,7 +19,9 @@ DESKTOP_DEST := $(APPLICATIONS_DIR)/backup.desktop
 
 .PHONY: all clean crontab
 
-all: dirs install desktop crontab
+all: dirs install_files desktop crontab
+
+install: dirs install_files desktop crontab
 
 # Crée les dossiers nécessaires
 dirs:
@@ -30,7 +32,7 @@ dirs:
 	@echo "Dossiers créés."
 
 # Copie des fichiers et permissions
-install:
+install_files:
 	@echo "Installation des fichiers..."
 	@cp $(POPUP_SCRIPT) $(BIN_POPUP)
 	@chmod +x $(BIN_POPUP)
@@ -61,7 +63,10 @@ crontab:
 	@echo "0 20 * * * DISPLAY=:0 $(BIN_POPUP)"
 	@echo ""
 
-clean:
+uninstall:
 	@echo "Suppression des fichiers installés..."
 	@rm -f $(BIN_POPUP) $(BIN_BACKUP) $(ICON_DEST) $(DESKTOP_DEST)
 	@echo "Fichiers supprimés."
+
+clean:
+	uninstall
